@@ -45,7 +45,7 @@ def preprocess(text):
 
 # Preview a document after preprocessing
 
-document_num = 100
+document_num = 101
 doc_sample = documents[documents['index'] == document_num].values[0][0]
 
 print("Original document: ")

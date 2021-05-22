@@ -19,3 +19,7 @@ All stopwords are removed.
 Words are lemmatized - words in third person are changed to first person and verbs in past and future tenses are changed into present.
 Words are stemmed - words are reduced to their root form.
 
+Bag of words on the dataset
+---------------------------
+
+We create a dictionary from 'processed_docs' containing the number of times a word appears in the training set. To do that, let's pass processed_docs to gensim.corpora.Dictionary() and call it 'dictionary'.
