@@ -45,7 +45,7 @@ def preprocess(text):
 
 # Preview a document after preprocessing
 
-document_num = 101
+document_num = 1001
 doc_sample = documents[documents['index'] == document_num].values[0][0]
 
 print("Original document: ")
@@ -55,3 +55,9 @@ for word in doc_sample.split(' '):
 print(words)
 print("\n\nTokenized and lemmatized document: ")
 print(preprocess(doc_sample))
+
+# Now  use the map function from pandas to apply preprocess() to the headline_text column
+# so that we can preprocess all the headlines
+processed_docs = documents['headline_text'].map(preprocess)
+
+print(processed_docs[:10])
