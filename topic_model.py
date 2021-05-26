@@ -45,7 +45,7 @@ def preprocess(text):
 
 # Preview a document after preprocessing
 
-# document_num = 1001
+document_num = 4310
 # doc_sample = documents[documents['index'] == document_num].values[0][0]
 
 # print("Original document: ")
@@ -75,7 +75,7 @@ for k, v in dictionary.iteritems():
     if count > 10:
         break
 
-print(len(dictionary))
+print('length of the dictionary : ',len(dictionary))
 
 '''
 OPTIONAL STEP
@@ -86,3 +86,74 @@ Remove very rare and very common words:
 '''
 # TODO: apply dictionary.filter_extremes() with the parameters mentioned above
 dictionary.filter_extremes(no_below=15, no_above=0.1, keep_n=100000)
+
+'''
+Gensim doc2bow
+
+doc2bow(document)
+
+Convert document (a list of words) into the bag-of-words format = list of (token_id, token_count) 2-tuples. 
+Each word is assumed to be tokenized and normalized string (either unicode or utf8-encoded). 
+No further preprocessing is done on the words in document; 
+apply tokenization, stemming etc. before calling this method.
+Create the Bag-of-words model for each document i.e for each document we create a dictionary reporting how many
+words and how many times those words appear.
+
+'''
+bow_corpus = [dictionary.doc2bow(doc) for doc in processed_docs]
+
+# Checking Bag of Words corpus for our sample document --> (token_id, token_count)
+
+print('bag of words for one sample document', bow_corpus[document_num])
+
+
+# Preview BOW for our sample preprocessed document
+
+# Here document_num is document number 4310 which we have checked in Step 2
+bow_doc = bow_corpus[document_num]
+
+for i in range(len(bow_doc)):
+    print("Word {} (\"{}\") appears {} time.".format(bow_doc[i][0], 
+                                                     dictionary[bow_doc[i][0]], 
+                                                     bow_doc[i][1]))
+
+
+
+# Create tf-idf model object using models.TfidfModel on 'bow_corpus' and save it to 'tfidf'
+
+from gensim import corpora, models
+tfidf = models.TfidfModel(bow_corpus)
+
+# Apply transformation to the entire corpus and call it 'corpus_tfidf'
+
+corpus_tfidf = tfidf[bow_corpus]
+
+# Preview TF-IDF scores for our first document --> --> (token_id, tfidf score)
+
+from pprint import pprint
+for doc in corpus_tfidf:
+    pprint(doc)
+    break
+
+# running lda using bow 
+# LDA mono-core
+# lda_model = gensim.models.LdaModel(bow_corpus, 
+#                                    num_topics = 10, 
+#                                    id2word = dictionary,                                    
+#                                    passes = 50)
+
+# Train your lda model using gensim.models.LdaMulticore and save it to 'lda_model'
+
+lda_model = gensim.models.LdaMulticore(bow_corpus, 
+                                       num_topics=5, 
+                                       id2word = dictionary, 
+                                       passes = 2, 
+                                       workers=2)
+
+
+# For each topic, we will explore the words occuring in that topic and its relative weight
+
+for idx, topic in lda_model.print_topics(-1):
+    print("Topic: {} \nWords: {}".format(idx, topic))
+    print("\n")
+
