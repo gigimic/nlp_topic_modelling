@@ -144,18 +144,18 @@ for doc in corpus_tfidf:
 
 # Train your lda model using gensim.models.LdaMulticore and save it to 'lda_model'
 
-lda_model = gensim.models.LdaMulticore(bow_corpus, 
-                                       num_topics=5, 
-                                       id2word = dictionary, 
-                                       passes = 2, 
-                                       workers=2)
+# lda_model = gensim.models.LdaMulticore(bow_corpus, 
+#                                        num_topics=5, 
+#                                        id2word = dictionary, 
+#                                        passes = 2, 
+#                                        workers=2)
 
 
 # For each topic, we will explore the words occuring in that topic and its relative weight
 
-for idx, topic in lda_model.print_topics(-1):
-    print("Topic: {} \nWords: {}".format(idx, topic))
-    print("\n")
+# for idx, topic in lda_model.print_topics(-1):
+#     print("Topic: {} \nWords: {}".format(idx, topic))
+#     print("\n")
 
 # Running LDA using TF-IDF
 

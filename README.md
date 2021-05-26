@@ -74,3 +74,6 @@ High eta: Each topic has a mixture of most words(topics appear similar to each o
 Low eta: Each topic has a mixture of few words.
 passes:  is the number of training passes through the corpus. For example, if the training corpus has 50,000 documents, chunksize is 10,000, passes is 2, then online training is done in 10 updates:
 
+Running LDA using TF-IDF
+-----------------------
+
