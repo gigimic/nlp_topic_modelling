@@ -77,3 +77,6 @@ passes:  is the number of training passes through the corpus. For example, if th
 Running LDA using TF-IDF
 -----------------------
 
+The same can be done with TF-IDF instead of BOW
+
+The model can be tested with a new document to find the efficiency of the model.
