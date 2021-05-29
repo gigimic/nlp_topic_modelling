@@ -79,4 +79,4 @@ Running LDA using TF-IDF
 
 The same can be done with TF-IDF instead of BOW
 
-The model can be tested with a new document to find the efficiency of the model.
+The model can be tested with a new document to find the efficiency of the model. The proper weightage of topics are given to the new document. 
